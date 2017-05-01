@@ -1,0 +1,7 @@
+{
+  "name": "Essais avec l'API twitter",
+  "version": "0.1.0",
+  "dependencies": {
+    "express": "~4.11.0",
+    "twit": "^2.2.5"
+  }
