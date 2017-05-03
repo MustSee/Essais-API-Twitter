@@ -12,7 +12,7 @@ var T = new twit({
 
 var params = {
 	q : "France",
-	count : 2
+	count : 5
 }
 
 T.get("search/tweets", params, gotData);
@@ -29,25 +29,21 @@ function gotData(err, data, response) {
 }
 
 // Partie serveur
-// On lance le serveur web dans lequel on a écrit une base de code html.
+// 1ère tentative d'affichage avec Ajax.
 // On intègre les résultats obtenus ci-dessus par l'API de twitter.
 
 var express = require("express");
 var app = express();
 
+app.use("/javascript", express.static(__dirname+"/javascript"));
+app.use("/lib", express.static(__dirname+"/lib"));
+
 app.get("/", function(req, res) {
-	res.write("<!DOCTYPE html>"+
-"<html>" +
-"	<head>" +
-"		<meta charset=\"utf-8\" />" +
-"		<title>Test sur Twitter</title>" +
-"	</head>" +
-"	<body>" +
-"		<p> Un premier paragraphe. </p>" +
-"		<p>" + tweetHtml[0] + "</p>" +
-"		<h1>" + tweetHtml[1] + "</h1>" +
-"	</body>" +
-"</html>");
+	res.sendFile(__dirname + "/html/index.html");
+});
+
+app.get("/api/affiche", function(req, res) {
+	res.json(tweetHtml);
 });
 
 app.listen(8080);
